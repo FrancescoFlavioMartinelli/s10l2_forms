@@ -1,0 +1,13 @@
+<!-- Per impostare un metodo al submit uso (ngSubmit) e passo come parametro #f id ng del form -->
+<form #f="ngForm" (ngSubmit)="login(f)">
+
+    <div #nameInputs="ngModelGroup" ngModelGroup="name">
+        <input ngModel type="text" name="nome" required>
+        <input ngModel type="text" name="cognome">
+    </div>
+
+    <input ngModel type="email" name="email">
+    <input ngModel type="password" name="password">
+
+    <button type="submit">Invia</button>
+</form>

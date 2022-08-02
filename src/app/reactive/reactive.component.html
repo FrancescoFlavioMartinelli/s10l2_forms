@@ -1,0 +1,29 @@
+<!-- Per associare una propretà al nostro form possiamo usare formGroup  -->
+<form [formGroup]="formUtenti" (ngSubmit)="formSubmit()">
+  <!-- 5 - impostare il formControlName con la chiave della propretà del FormGroup da associare all'input -->
+  <input type="text" name="nome" formControlName="nome">
+  <span *ngIf="getErrors('nome', 'required') && getFormControl('nome')?.touched">
+    Inserire un nome
+  </span>
+  <span *ngIf="getErrors('nome', 'minlength') && getFormControl('nome')?.touched">
+    Il nome è troppo breve
+  </span>
+  <!-- <span *ngIf="!nomeValid() && getFormControl('nome')?.touched">
+    Nome non valido
+  </span> -->
+
+  <!-- 6 - raggruppiamo tutti gli input che genereremo in un formArray indicato da formArrayName -->
+  <div formArrayName="tel">
+    <!-- 6 - per la creazione di input multipli legati a una singola prorpetà del FormGroup facciamo *ngForOf -->
+    <div *ngFor="let t of getFormControlArray('tel').controls;index as i;">
+      Telefono n: {{i}}
+      <input type="text" name="telefono" [formControlName]="i">
+    </div>
+  </div>
+
+  <!-- 7 - pulsante per aggiungere un nuovo input vuoto -->
+  <span (click)="addTel()">Aggiungi telefono</span>
+
+
+  <button type="submit" [disabled]="formUtenti.invalid">Submit</button>
+</form>
